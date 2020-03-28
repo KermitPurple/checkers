@@ -1,7 +1,9 @@
 let peices = []
+let scl
 
 function setup(){
 	createCanvas(600,600);
+	scl = width/8;
 	peices.push(new Peice(0,0,0));
 	peices.push(new Peice(1,0,0));
 	peices.push(new Peice(1,1,1));
@@ -16,7 +18,6 @@ function draw(){
 }
 
 function drawBoard(){
-	let scl = width/8;
 	let color
 	strokeWeight(1);
 	stroke(0);
@@ -38,5 +39,17 @@ function drawBoard(){
 	}
 }
 
+function findSquare(){
+	for(let i = 0; i < 9; i++){
+		for(let j = 0; j < 9; j++){
+			if(j * scl >= mouseX && i * scl >= mouseY){
+				return createVector(j - 1 , i - 1);
+			}
+		}
+	}
+	
+}
+
 function mousePressed(){
+	console.log(findSquare());
 }

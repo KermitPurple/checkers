@@ -2,7 +2,6 @@ class Peice{
 	constructor(x, y, team){
 		this.pos = createVector(x,y)
 		this.team = team
-		this.scl = width/8
 	}
 
 	draw(){
@@ -15,6 +14,6 @@ class Peice{
 		}
 		strokeWeight(3);
 		ellipseMode(CORNER)
-		ellipse(this.pos.x * this.scl + this.scl/16, this.pos.y * this.scl + this.scl/16 , this.scl - this.scl/8)
+		ellipse(this.pos.x * scl + scl/16, this.pos.y * scl + scl/16 , scl - scl/8)
 	}
 };
