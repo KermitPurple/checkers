@@ -1,7 +1,8 @@
 let peices = []
 let scl
 let counter = 0;
-turn = 0;
+let turn = 0;
+let index;
 currentPeice = null;
 
 function setup(){
@@ -57,7 +58,9 @@ function getPeiceIndex(pos){
 	if(exists(pos)){
 		for(let i = 0; i < peices.length; i++){
 			if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
-				return i;
+				if(peices[i].team == turn){
+					return i;
+				}
 			}
 		}
 	}
@@ -65,10 +68,10 @@ function getPeiceIndex(pos){
 
 function mousePressed(){
 	let pos = findSquare();
-	let index;
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
 		currentPeice = peices[index];
+		console.log(currentPeice)
 	}else{
 		if(!exists(pos)){
 			peices.push(new Peice(pos.x, pos.y, turn));
