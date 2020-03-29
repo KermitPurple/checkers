@@ -1,13 +1,16 @@
 let peices = []
 let scl
+let counter = 0;
+turn = 0;
+currentPeice = null;
 
 function setup(){
 	createCanvas(600,600);
 	scl = width/8;
 	peices.push(new Peice(0,0,0));
-	peices.push(new Peice(1,0,0));
+	peices.push(new Peice(0,1,0));
 	peices.push(new Peice(1,1,1));
-	peices.push(new Peice(0,1,1));
+	peices.push(new Peice(1,0,1));
 }
 
 function draw(){
@@ -50,6 +53,41 @@ function findSquare(){
 	
 }
 
+function getPeiceIndex(pos){
+	if(exists(pos)){
+		for(let i = 0; i < peices.length; i++){
+			if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
+				return i;
+			}
+		}
+	}
+}
+
 function mousePressed(){
-	console.log(findSquare());
+	let pos = findSquare();
+	let index;
+	if(currentPeice == null){
+		index = getPeiceIndex(pos);
+		currentPeice = peices[index];
+	}else{
+		if(!exists(pos)){
+			peices.push(new Peice(pos.x, pos.y, turn));
+			peices.splice(index, 1);
+			currentPeice = null;
+			if(turn == 0){
+				turn = 1;
+			}else{
+				turn = 0;
+			}
+		}
+	}
+}
+
+function exists(pos){
+	for(let i = 0; i < peices.length; i++){
+		if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
+			return true;
+		}
+	}
+	return false
 }
