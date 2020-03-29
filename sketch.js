@@ -74,14 +74,16 @@ function mousePressed(){
 		console.log(currentPeice)
 	}else{
 		if(!exists(pos)){
-			peices.push(new Peice(pos.x, pos.y, turn));
-			peices.splice(index, 1);
-			currentPeice = null;
-			if(turn == 0){
-				turn = 1;
-			}else{
-				turn = 0;
+			if(validMove(currentPeice.pos ,pos)){
+				peices.push(new Peice(pos.x, pos.y, turn));
+				peices.splice(index, 1);
+				if(turn == 0){
+					turn = 1;
+				}else{
+					turn = 0;
+				}
 			}
+			currentPeice = null;
 		}
 	}
 }
@@ -90,6 +92,19 @@ function exists(pos){
 	for(let i = 0; i < peices.length; i++){
 		if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
 			return true;
+		}
+	}
+	return false
+}
+
+function validMove(old, potential){
+	if(!exists(potential)){
+		for(let i = -1; i <= 1; i++){ 
+			for(let j = -1; j <= 1; j++){ 
+				if(old.x + j == potential.x && old.y + i == potential.y){
+						return true
+				}
+			}
 		}
 	}
 	return false
