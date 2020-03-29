@@ -3,15 +3,17 @@ let scl
 let counter = 0;
 let turn = 0;
 let index;
-currentPeice = null;
+let currentPeice = null;
+let turnDisplay;
 
 function setup(){
-	createCanvas(600,600);
+	createCanvas(590,590).parent('brdp');
 	scl = width/8;
 	peices.push(new Peice(0,0,0));
 	peices.push(new Peice(0,1,0));
 	peices.push(new Peice(1,1,1));
 	peices.push(new Peice(1,0,1));
+	turnDisplay = select('#turnDisplay')
 }
 
 function draw(){
@@ -79,8 +81,10 @@ function mousePressed(){
 				peices.splice(index, 1);
 				if(turn == 0){
 					turn = 1;
+					turnDisplay.html("White Move");
 				}else{
 					turn = 0;
+					turnDisplay.html("Black Move");
 				}
 			}
 			currentPeice = null;
