@@ -6,7 +6,7 @@ class Peice{
 	}
 
 	draw(){
-		if(this.team == team.BLACK){
+		if(this.team == Team.BLACK){
 			fill(0);
 			stroke(255);
 		} else {
@@ -23,11 +23,11 @@ class Peice{
 
 	validMove(potential){
 		if(this.tryJump(potential)){
-			return moveType.JUMP;
+			return MoveType.JUMP;
 		} else if(this.tryMove(potential)){
-			return moveType.MOVE;
+			return MoveType.MOVE;
 		}
-		return moveType.NONE;
+		return MoveType.NONE;
 	}
 
 	tryJump(potential){
@@ -74,7 +74,7 @@ class Peice{
 	}
 
 	upgrade(){
-		if((this.pos.y == 0 && this.team == team.BLACK) || (this.pos.y == 7 && this.team == team.WHITE)){
+		if((this.pos.y == 0 && this.team == Team.BLACK) || (this.pos.y == 7 && this.team == Team.WHITE)){
 			this.king = true;
 		}
 	}

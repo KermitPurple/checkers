@@ -5,12 +5,12 @@ let index;
 let currentPeice = null;
 let turnDisplay;
 let nochange = false;
-const team = {
+const Team = {
 	BLACK: 0,
 	WHITE: 1,
 };
-let turn = team.BLACK;
-const moveType = {
+let turn = Team.BLACK;
+const MoveType = {
 	NONE: 0,
 	MOVE: 1,
 	JUMP: 2,
@@ -85,10 +85,10 @@ function mousePressed(){
 	}else{
 		if(!exists(pos)){
 			let move = currentPeice.validMove(pos);
-			if(move != moveType.NONE){
+			if(move != MoveType.NONE){
 				nochange = false;
 				currentPeice.pos = pos;
-				if(move === moveType.MOVE){
+				if(move === MoveType.MOVE){
 					if(turn == 0){
 						turn = 1;
 						turnDisplay.html("White Move");
@@ -140,3 +140,4 @@ function fillBoard(){
 		peices.push(new Peice(x - 1, 7, 0));
 	}
 }
+
