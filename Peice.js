@@ -1,7 +1,8 @@
 class Peice{
 	constructor(x, y, team){
-		this.pos = createVector(x,y)
-		this.team = team
+		this.pos = createVector(x,y);
+		this.team = team;
+		this.king = false;
 	}
 
 	draw(){
@@ -22,13 +23,13 @@ class Peice{
 			for(let i = -1; i <= 1; i += 2){ 
 				for(let j = -1; j <= 1; j += 2){ 
 					if(this.pos.x + j == potential.x && this.pos.y + i == potential.y){
-						if((i > 0 && turn == 1) || (i < 0 && turn == 0)){
-							return true
+						if(this.king || (i > 0 && turn == 1) || (i < 0 && turn == 0)){
+							return true;
 						}
 					}
 				}
 			}
 		}
-		return false
+		return false;
 	}
 };
