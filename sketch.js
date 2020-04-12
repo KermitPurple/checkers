@@ -16,6 +16,7 @@ function setup(){
 function draw(){
 	drawBoard()
 	for(let i = 0; i < peices.length; i++){
+		peices[i].upgrade();
 		peices[i].draw();
 	}
 	drawCurrentHighlight()

@@ -13,35 +13,44 @@ class Peice{
 			fill(255);
 			stroke(0);
 		}
+		if(this.king){
+			stroke(255, 0, 0);
+		}
 		strokeWeight(3);
 		ellipseMode(CORNER)
 		ellipse(this.pos.x * scl + scl/16, this.pos.y * scl + scl/16 , scl - scl/8)
 	}
 
 	validMove(potential){
-			return (this.tryJump(potential) || this.tryMove(potential))
+		return (this.tryJump(potential) || this.tryMove(potential))
 	}
 
 	tryJump(potential){
 		if(!exists(potential)){
-			let y;
-			if(turn == 1){
-				y = 1
-			} else {
-				y = -1
-			}
-			for(let i = -1; i <= 1; i += 2){ 
-				if(this.pos.x + i * 2 == potential.x && this.pos.y + y * 2 == potential.y){
-					let pos = createVector(this.pos.x + i, this.pos.y + y)
-					index = getPeiceIndex(pos)
-					if(exists(pos) && peices[index].team != this.team){
-						peices.splice(index, 1)
-						return true
+			for(let y = -1; y <= 1; y += 2){ 
+				if(!this.king){
+					if(turn == 1){
+						y = 1
+					} else {
+						y = -1
 					}
 				}
+				for(let i = -1; i <= 1; i += 2){ 
+					if(this.pos.x + i * 2 == potential.x && this.pos.y + y * 2 == potential.y){
+						let pos = createVector(this.pos.x + i, this.pos.y + y)
+						index = getPeiceIndex(pos)
+						if(exists(pos) && peices[index].team != this.team){
+							peices.splice(index, 1)
+							return true
+						}
+					}
+				}
+				if(!this.king){
+					return false
+				}
 			}
+			return false
 		}
-		return false
 	}
 
 	tryMove(potential){
@@ -58,4 +67,12 @@ class Peice{
 		}
 		return false
 	}
+
+	upgrade(){
+		if((this.pos.y == 0 && this.team == 0) || (this.pos.y == 7 && this.team == 1)){
+			this.king = true;
+		}
+	}
+
 };
+
