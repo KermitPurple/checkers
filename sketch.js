@@ -9,11 +9,8 @@ let turnDisplay;
 function setup(){
 	createCanvas(590,590).parent('brdp');
 	scl = width/8;
-	peices.push(new Peice(0,0,0));
-	peices.push(new Peice(0,1,0));
-	peices.push(new Peice(1,1,1));
-	peices.push(new Peice(1,0,1));
 	turnDisplay = select('#turnDisplay')
+	fillBoard();
 }
 
 function draw(){
@@ -21,7 +18,7 @@ function draw(){
 	for(let i = 0; i < peices.length; i++){
 		peices[i].draw();
 	}
-	draw_current_highlight()
+	drawCurrentHighlight()
 }
 
 function drawBoard(){
@@ -102,8 +99,8 @@ function exists(pos){
 
 function validMove(old, potential){
 	if(!exists(potential)){
-		for(let i = -1; i <= 1; i++){ 
-			for(let j = -1; j <= 1; j++){ 
+		for(let i = -1; i <= 1; i += 2){ 
+			for(let j = -1; j <= 1; j += 2){ 
 				if(old.x + j == potential.x && old.y + i == potential.y){
 						return true
 				}
@@ -113,11 +110,22 @@ function validMove(old, potential){
 	return false
 }
 
-function draw_current_highlight(){
+function drawCurrentHighlight(){
 	if(currentPeice != null){
 		noFill();
 		strokeWeight(5);
-		stroke(color('rgba(255, 0, 0, 0.5)'))
-		rect(currentPeice.pos.x * scl, currentPeice.pos.y * scl, scl)
+		stroke(color('rgba(255, 0, 0, 0.5)'));
+		rect(currentPeice.pos.x * scl, currentPeice.pos.y * scl, scl);
+	}
+}
+
+function fillBoard(){
+	for(let x = 1; x < 8; x += 2){
+		peices.push(new Peice(x, 0, 1));
+		peices.push(new Peice(x - 1, 1, 1));
+		peices.push(new Peice(x, 2, 1));
+		peices.push(new Peice(x - 1, 5, 0));
+		peices.push(new Peice(x, 6, 0));
+		peices.push(new Peice(x - 1, 7, 0));
 	}
 }
