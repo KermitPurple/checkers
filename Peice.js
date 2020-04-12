@@ -34,7 +34,7 @@ class Peice{
 		if(!exists(potential)){
 			for(let y = -1; y <= 1; y += 2){ 
 				if(!this.king){
-					if(turn == 1){
+					if(turn == Team.WHITE){
 						y = 1
 					} else {
 						y = -1
