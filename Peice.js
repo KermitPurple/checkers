@@ -33,7 +33,9 @@ class Peice{
 			for(let i = -1; i <= 1; i += 2){ 
 				if(this.pos.x + i * 2 == potential.x && this.pos.y + y * 2 == potential.y){
 					let pos = createVector(this.pos.x + i, this.pos.y + y)
-					if(exists(pos) && peices[getPeiceIndex(pos)].team != this.team){
+					index = getPeiceIndex(pos)
+					if(exists(pos) && peices[index].team != this.team){
+						peices.splice(index, 1)
 						return true
 					}
 				}
