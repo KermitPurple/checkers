@@ -30,7 +30,7 @@ class Peice{
 		return MoveType.NONE;
 	}
 
-	tryJump(potential){
+	tryJump(potential, remove = true){
 		if(!exists(potential)){
 			for(let y = -1; y <= 1; y += 2){ 
 				if(!this.king){
@@ -45,7 +45,9 @@ class Peice{
 						let pos = createVector(this.pos.x + i, this.pos.y + y)
 						index = getPeiceIndex(pos)
 						if(exists(pos) && peices[index].team != this.team){
-							peices.splice(index, 1)
+							if(remove){
+								peices.splice(index, 1)
+							}
 							return true
 						}
 					}

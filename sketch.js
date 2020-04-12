@@ -75,6 +75,7 @@ function getPeiceIndex(pos){
 }
 
 function mousePressed(){
+	print(jumpExists(turn))
 	let pos = findSquare();
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
@@ -86,18 +87,20 @@ function mousePressed(){
 		if(!exists(pos)){
 			let move = currentPeice.validMove(pos);
 			if(move != MoveType.NONE){
-				nochange = false;
-				currentPeice.pos = pos;
-				if(move === MoveType.MOVE){
-					if(turn == 0){
-						turn = 1;
-						turnDisplay.html("White Move");
-					}else{
-						turn = 0;
-						turnDisplay.html("Black Move");
+				if(!jumpExists(turn) || move == MoveType.JUMP){
+					nochange = false;
+					currentPeice.pos = pos;
+					if(move === MoveType.MOVE){
+						if(turn == Team.BLACK){
+							turn = Team.WHITE;
+							turnDisplay.html("White Move");
+						}else{
+							turn = Team.BLACK;
+							turnDisplay.html("Black Move");
+						}
+					} else if(jumpExists(turn)){
+						nochange = true;
 					}
-				} else {
-					nochange = true;
 				}
 			}
 			if(!nochange){
@@ -141,3 +144,34 @@ function fillBoard(){
 	}
 }
 
+function jumpExists(team){
+	for(let i = 0; i < peices.length; i++){
+		if(peices[i].team == team){
+			let pos;
+			if(peices[i].king){
+				for(let k = -1; k < 1; k += 2){
+					for(let j = -1; j < 1; j += 2){
+						pos = createVector(peices[i].pos.x + j * 2, peices[i] + k * 2)
+						if(peices[i].tryJump(pos)){
+							return true;
+						}
+					}
+				}
+			}else{
+				let y;
+				if(team == Team.BLACK){
+					y = -1
+				}else{
+					y = 1
+				}
+				for(let j = -1; j < 1; j += 2){
+					pos = createVector(peices[i].pos.x + j * 2, peices[i].pos.y + y * 2)
+					if(peices[i].tryJump(pos, false)){
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false
+}
