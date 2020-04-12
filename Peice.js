@@ -20,6 +20,20 @@ class Peice{
 
 	validMove(potential){
 		if(!exists(potential)){
+			let y;
+			if(turn == 1){
+				y = 1
+			} else {
+				y = -1
+			}
+			for(let i = -1; i <= 1; i += 2){ 
+				if(this.pos.x + i * 2 == potential.x && this.pos.y + y * 2 == potential.y){
+					let pos = createVector(this.pos.x + i, this.pos.y + y)
+					if(exists(pos) && peices[getPeiceIndex(pos)].team != this.team){
+						return true
+					}
+				}
+			}
 			for(let i = -1; i <= 1; i += 2){ 
 				for(let j = -1; j <= 1; j += 2){ 
 					if(this.pos.x + j == potential.x && this.pos.y + i == potential.y){

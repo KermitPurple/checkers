@@ -51,16 +51,13 @@ function findSquare(){
 			}
 		}
 	}
-	
 }
 
 function getPeiceIndex(pos){
 	if(exists(pos)){
 		for(let i = 0; i < peices.length; i++){
 			if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
-				if(peices[i].team == turn){
-					return i;
-				}
+				return i;
 			}
 		}
 	}
@@ -70,6 +67,9 @@ function mousePressed(){
 	let pos = findSquare();
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
+		if(peices[index].team != turn){
+			return
+		}
 		currentPeice = peices[index];
 	}else{
 		if(!exists(pos)){
