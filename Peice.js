@@ -22,7 +22,12 @@ class Peice{
 	}
 
 	validMove(potential){
-		return (this.tryJump(potential) || this.tryMove(potential))
+		if(this.tryJump(potential)){
+			return moveType.JUMP;
+		} else if(this.tryMove(potential)){
+			return moveType.MOVE;
+		}
+		return moveType.NONE;
 	}
 
 	tryJump(potential){

@@ -5,6 +5,16 @@ let turn = 0;
 let index;
 let currentPeice = null;
 let turnDisplay;
+let nochange = false;
+const team = {
+	BLACK: 0,
+	WHITE: 1,
+};
+const moveType = {
+	NONE: 0,
+	MOVE: 1,
+	JUMP: 2,
+}
 
 function setup(){
 	createCanvas(590,590).parent('brdp');
@@ -74,18 +84,26 @@ function mousePressed(){
 		currentPeice = peices[index];
 	}else{
 		if(!exists(pos)){
-			if(currentPeice.validMove(pos)){
-				currentPeice.pos = pos
-				if(turn == 0){
-					turn = 1;
-					turnDisplay.html("White Move");
-				}else{
-					turn = 0;
-					turnDisplay.html("Black Move");
+			let move = currentPeice.validMove(pos);
+			if(move != moveType.NONE){
+				nochange = false;
+				currentPeice.pos = pos;
+				if(move === moveType.MOVE){
+					if(turn == 0){
+						turn = 1;
+						turnDisplay.html("White Move");
+					}else{
+						turn = 0;
+						turnDisplay.html("Black Move");
+					}
+				} else {
+					nochange = true;
 				}
 			}
-			currentPeice = null;
-		} else {
+			if(!nochange){
+				currentPeice = null;
+			}
+		} else if(!nochange) {
 			index = getPeiceIndex(pos)
 			if(peices[index].team == turn){
 				currentPeice = peices[index]
