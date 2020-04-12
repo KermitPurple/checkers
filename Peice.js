@@ -61,6 +61,9 @@ class Peice{
 	}
 
 	tryMove(potential){
+		if(jumpExists(this.team)){
+			return false
+		}
 		if(!exists(potential)){
 			for(let i = -1; i <= 1; i += 2){ 
 				for(let j = -1; j <= 1; j += 2){ 
