@@ -21,6 +21,7 @@ function draw(){
 	for(let i = 0; i < peices.length; i++){
 		peices[i].draw();
 	}
+	draw_current_highlight()
 }
 
 function drawBoard(){
@@ -73,12 +74,10 @@ function mousePressed(){
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
 		currentPeice = peices[index];
-		console.log(currentPeice)
 	}else{
 		if(!exists(pos)){
 			if(validMove(currentPeice.pos ,pos)){
-				peices.push(new Peice(pos.x, pos.y, turn));
-				peices.splice(index, 1);
+				currentPeice.pos = pos
 				if(turn == 0){
 					turn = 1;
 					turnDisplay.html("White Move");
@@ -112,4 +111,10 @@ function validMove(old, potential){
 		}
 	}
 	return false
+}
+
+function draw_current_highlight(){
+	if(currentPeice != null){
+		rect(currentPeice.pos.x * scl, currentPeice.pos.y * scl, scl)
+	}
 }
