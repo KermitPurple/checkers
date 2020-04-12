@@ -1,7 +1,6 @@
 let peices = []
 let scl
 let counter = 0;
-let turn = 0;
 let index;
 let currentPeice = null;
 let turnDisplay;
@@ -10,6 +9,7 @@ const team = {
 	BLACK: 0,
 	WHITE: 1,
 };
+let turn = team.BLACK;
 const moveType = {
 	NONE: 0,
 	MOVE: 1,

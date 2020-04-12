@@ -6,7 +6,7 @@ class Peice{
 	}
 
 	draw(){
-		if(this.team == 0){
+		if(this.team == team.BLACK){
 			fill(0);
 			stroke(255);
 		} else {
@@ -74,7 +74,7 @@ class Peice{
 	}
 
 	upgrade(){
-		if((this.pos.y == 0 && this.team == 0) || (this.pos.y == 7 && this.team == 1)){
+		if((this.pos.y == 0 && this.team == team.BLACK) || (this.pos.y == 7 && this.team == team.WHITE)){
 			this.king = true;
 		}
 	}
