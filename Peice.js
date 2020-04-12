@@ -16,4 +16,18 @@ class Peice{
 		ellipseMode(CORNER)
 		ellipse(this.pos.x * scl + scl/16, this.pos.y * scl + scl/16 , scl - scl/8)
 	}
+
+validMove(potential){
+	if(!exists(potential)){
+		for(let i = -1; i <= 1; i += 2){ 
+			for(let j = -1; j <= 1; j += 2){ 
+				if(this.pos.x + j == potential.x && this.pos.y + i == potential.y){
+						return true
+				}
+			}
+		}
+	}
+	return false
+}
+
 };

@@ -73,7 +73,7 @@ function mousePressed(){
 		currentPeice = peices[index];
 	}else{
 		if(!exists(pos)){
-			if(validMove(currentPeice.pos ,pos)){
+			if(currentPeice.validMove(pos)){
 				currentPeice.pos = pos
 				if(turn == 0){
 					turn = 1;
@@ -84,6 +84,11 @@ function mousePressed(){
 				}
 			}
 			currentPeice = null;
+		} else {
+			index = getPeiceIndex(pos)
+			if(peices[index].team == turn){
+				currentPeice = peices[index]
+			}
 		}
 	}
 }
@@ -92,19 +97,6 @@ function exists(pos){
 	for(let i = 0; i < peices.length; i++){
 		if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
 			return true;
-		}
-	}
-	return false
-}
-
-function validMove(old, potential){
-	if(!exists(potential)){
-		for(let i = -1; i <= 1; i += 2){ 
-			for(let j = -1; j <= 1; j += 2){ 
-				if(old.x + j == potential.x && old.y + i == potential.y){
-						return true
-				}
-			}
 		}
 	}
 	return false
