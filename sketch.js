@@ -115,6 +115,9 @@ function validMove(old, potential){
 
 function draw_current_highlight(){
 	if(currentPeice != null){
+		noFill();
+		strokeWeight(5);
+		stroke(color('rgba(255, 0, 0, 0.5)'))
 		rect(currentPeice.pos.x * scl, currentPeice.pos.y * scl, scl)
 	}
 }
