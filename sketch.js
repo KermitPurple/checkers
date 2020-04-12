@@ -75,7 +75,6 @@ function getPeiceIndex(pos){
 }
 
 function mousePressed(){
-	print(jumpExists(turn))
 	let pos = findSquare();
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
@@ -90,7 +89,7 @@ function mousePressed(){
 				if(!jumpExists(turn) || move == MoveType.JUMP){
 					nochange = false;
 					currentPeice.pos = pos;
-					if(move === MoveType.MOVE){
+					if(move === MoveType.MOVE ||!jumpExists(turn)){
 						if(turn == Team.BLACK){
 							turn = Team.WHITE;
 							turnDisplay.html("White Move");
