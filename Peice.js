@@ -56,8 +56,8 @@ class Peice{
 					return false
 				}
 			}
-			return false
 		}
+		return false
 	}
 
 	tryMove(potential){
