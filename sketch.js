@@ -75,7 +75,6 @@ function getPeiceIndex(pos){
 }
 
 function mousePressed(){
-	print(jumpExists(turn, false))
 	let pos = findSquare();
 	if(currentPeice == null){
 		index = getPeiceIndex(pos);
@@ -118,9 +117,7 @@ function mousePressed(){
 function exists(pos){
 	for(let i = 0; i < peices.length; i++){
 		if(pos.x == peices[i].pos.x && pos.y == peices[i].pos.y){
-			if(pos.x > 0 && pos.y > 0 && pos.x < 8 && pos.y < 8){
-				return true;
-			}
+			return true;
 		}
 	}
 	return false
@@ -153,6 +150,8 @@ function jumpExists(team){
 			for(let k = -1; k <= 1; k += 2){
 				for(let j = -1; j <= 1; j += 2){
 					pos = createVector(peices[i].pos.x + j * 2, peices[i].pos.y + k * 2)
+					if(pos.x < 0 || pos.y < 0 || pos.x > 7 || pos.y > 7)
+						continue;
 					if(peices[i].tryJump(pos, false)){
 						return true;
 					}
