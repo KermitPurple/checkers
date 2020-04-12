@@ -19,6 +19,10 @@ class Peice{
 	}
 
 	validMove(potential){
+			return (this.tryJump(potential) || this.tryMove(potential))
+	}
+
+	tryJump(potential){
 		if(!exists(potential)){
 			let y;
 			if(turn == 1){
@@ -34,6 +38,12 @@ class Peice{
 					}
 				}
 			}
+		}
+		return false
+	}
+
+	tryMove(potential){
+		if(!exists(potential)){
 			for(let i = -1; i <= 1; i += 2){ 
 				for(let j = -1; j <= 1; j += 2){ 
 					if(this.pos.x + j == potential.x && this.pos.y + i == potential.y){
@@ -44,6 +54,6 @@ class Peice{
 				}
 			}
 		}
-		return false;
+		return false
 	}
 };
